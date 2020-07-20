@@ -1,6 +1,7 @@
-# Web Semântica - Trabalho 1 (Época de Recurso)
+# Web Semântica - Trabalho 2 (Época de Recurso)
 
 Book catalog application developed in Python3 and using SPARQL and GraphDB to deal with RDF graph data.
+For TP2 was made the **RDFa** implementation on templates/booksguru/bookDetails.html.
 
 ![Book catalog for Web Samantic Academic Work](screenshot.png)
 
@@ -57,16 +58,9 @@ Now, you can access one of these links:
 - s4api 1.1.0  
   https://pypi.org/project/s4api/
 
-## New Implementations for "Recurso" Epoc
+## Infos
+Django Admin:  
+User: admin  
+Pass: admin  
 
-- Added route do "/" for better user experience
-- Improved the graphical style of the website
-- Working with models, forms, views, urls and templates
-- Using Django Admin by registering models (admin.sites.register (ModelName))
-- Created system to login, logout and register users
-- Welcome message to the user
-- Add comment for a book, only for logged in users
-- Use of the SQlite3 database, in addition to GraphDB
-- When load a book details page, the system get all comments tho actual book, from BD
-
-Default user passwords: userpass2020
+Other normal users created was used this default password: userpass2020
