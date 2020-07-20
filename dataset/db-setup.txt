@@ -1,0 +1,12 @@
+
+--- [GraphDB]
+
+
+Após instalação do GraphDB Community, adicionar um novo repositório com os seguintes dados:
+
+Repository ID:      booksguru
+Base URL:           http://example.org/owlim#
+
+Importar o ficheiro "statements.jsonld", o qual contém o backup dos dados do projeto desenvolvido.
+
+Obs: pode ser utilizado também a mesma base de dados utilizada para o TP1.

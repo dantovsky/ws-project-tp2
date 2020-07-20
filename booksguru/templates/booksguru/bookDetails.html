@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+{% load static %}
+
+<head>
+	<!-- Basic need -->
+	<title>{% block title %}{{ book.title }}{% endblock %}</title>
+
+</head>
+<body>
+
+{% block main %}
+<div class="hero mv-single-hero">
+	<div class="container">
+		<div class="row">
+		</div>
+	</div>
+</div>
+<div class="page-single movie-single movie_single">
+	<div class="container">
+		<div class="row ipad-width2">
+
+      <!-- Applying RDFa -->
+
+      <div vocab="http://schema.org/">
+        <div class="col-md-4 col-sm-12 col-xs-12">
+          <div class="movie-img sticky-sb">
+            <img property="image" src="{{book.image_url}}" alt="{{book.title}}">
+            <div class="movie-btn">
+              <div class="btn-transform transform-vertical">
+                <div><a href="{{ book.image_url }}" class="item item-1 yellowbtn"> <i class="ion-card"></i>Open Image</a></div>
+                <div><a href="{{ book.image_url }}" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8 col-sm-12 col-xs-12">
+          <div class="movie-single-ct main-content">
+
+              <h1 class="bd-hd" property="name">{{book.title}} <span>year: </span><span property="copyrightYear">{{book.pub_year | floatformat}}</span></h1>
+              <h2 class="authors mb-3" property="author" typeof="Person" resource="http://viaf.org/viaf/17823">
+                AUTHOR: {{book.authors}}
+              </h2>
+              <p>ISBN-13: <span property="isbn">{{book.isbn13}}</span></p>
+              <p>Language: <span property="inLanguage" content="{{book.language_code}}">{{book.language_code}}</span></p>
+              <div class="movie-rate">
+                <div class="rate" property="aggregateRating" typeof="AggregateRating">
+                  <i class="ion-android-star"></i>
+                  <p><span property="ratingValue">{{book.average_rating}}</span><span> / 5</span><br>
+                    <span class="rv" property="reviewCount">{{book.ratings_count}}</span><span> reviews</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+              <div class="comments">
+                  <h3>Comments about this book</h3>
+                  <div style="color: whitesmoke">
+                      {% if comments %}
+                          {% for comment in comments %}
+                              <div class="comment" property="review" typeof="Review">
+                                  <h4>
+                                    <span property="author">{{ comment.name }}</span>
+                                    <small class="pull-right gold"><meta property="datePublished" content="{{ comment.created_at|date:'Y-m-d' }}">{{ comment.created_at|date:'d/m/Y' }}</small>
+                                  </h4>
+                                  <p><span property="reviewBody">{{ comment.comment }}</span></p>
+                              </div>
+                          {% endfor %}
+                      {% else %}
+                          <p>There are no comments for this book.</p>
+                      {% endif %}
+
+                      {% if user.is_authenticated %}
+                          <h4 class="gold">Leave a comment</h4>
+                          <br>
+                        <form method="POST" action="{% url 'post_comment' book.book_id %}">
+                          {% csrf_token %}
+
+                            <div class="form-row container-fluid" style="background-color: rgba(59,59,59,0.5); padding-top: 10px;">
+                                <div class="form-group col-md-6">
+                                  <label for="name">Name</label>
+                                  <input id="name" type="text" name="name" value="{{ user.first_name }} {{ user.last_name }}" readonly>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                  <label for="book_id">Book ID</label>
+                                  <input id="book_id" type="text" name="book_id" value="{{ book.book_id }}" readonly>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                  <label for="comment">Comment</label>
+                                  <textarea id="comment" name="comment" style="height: 85px;" required></textarea>
+                                </div>
+
+                                <div class="form-group col-md-12">
+                                  <button type="submit" style="color: #0b1a2a">Submit Comment</button>
+                                </div>
+                            </div>
+                        </form>
+                      {% else %}
+                        <p><a href="{% url 'login' %}">Login</a> to comment</p>
+                      {% endif %}
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div><!-- End RDFa implementation -->
+		</div>
+	</div>
+</div>
+{% endblock %}
+</body>
+</html>

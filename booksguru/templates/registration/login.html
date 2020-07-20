@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+{% load static %}
+
+
+<head>
+	<title>{% block title %}BooksGuru | Login{% endblock %}</title>
+</head>
+<body>
+
+{% block main %}
+<div class="hero common-hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="hero-ct">
+                    <h1>User Login</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="movie-items">
+    <div class="container">
+        <div class="row ipad-width">
+            <div class="col-md-6 col-lg-offset-3">
+                <div style="margin-bottom: 68px;">
+
+                    <p>Como um utilizador logado, você poderá adicionar comentários nos seus livros favoritos. Aproveite para contar a sua experiência de leitura e fazer as recomentações que achar necessário.</p>
+
+                    {% load crispy_forms_tags %}
+
+                        <div class="row justify-content-center">
+                            <div class="col-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form method="post" novalidate>
+                                            {% csrf_token %}
+                                            {{ form|crispy }}
+                                            <button type="submit" class="btn btn-primary">Log in</button>
+                                            <a href="{% url 'password_reset' %}" class="btn btn-link">Forgot your
+                                                password?</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</div>
+</body>
+
+
+</html>

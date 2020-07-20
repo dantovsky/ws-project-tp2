@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+
+
+<head>
+	<!-- Basic need -->
+	<title>{% block title %}BooksGuru | Discover new books{% endblock %}</title>
+
+    {% block head %}
+	<meta charset="UTF-8">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<meta name="author" content="">
+	<link rel="profile" href="#">
+
+    <!--Google Font-->
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Dosis:400,700,500|Nunito:300,400,600' />
+	<!-- Mobile specific meta -->
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<meta name="format-detection" content="telephone-no">
+    {% load static %}
+	<!-- CSS files -->
+	<link rel="stylesheet" href="{% static 'style/css/plugins.css' %}">
+	<link rel="stylesheet" href="{% static 'style/css/style.css' %}">
+	<link rel="stylesheet" href="{% static 'style/css/custom-style.css' %}">
+    {% endblock %}
+
+</head>
+<body>
+{% block header %}
+<!-- BEGIN | Header -->
+<header class="ht-header">
+	<div class="container">
+		<nav class="navbar navbar-default navbar-custom">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header logo">
+				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					    <span class="sr-only">Toggle navigation</span>
+					    <div id="nav-icon1">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+				    </div>
+				    <a href="{% url 'index' %}"><img class="logo" src="{% static 'style/images/book.png' %}" alt="Logo Books Guru" width="119" height="58"></a>
+			    </div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav flex-child-menu menu-left">
+						<li class="hidden">
+							<a href="#page-top"></a>
+						</li>
+                        <li><a href="{% url 'index' %}">Home</a></li>
+                        <li><a href="{% url 'about' %}">About</a></li>
+                        <li><a href="{% url 'show_books' %}">Explore</a></li>
+                        <li><a href="{% url 'most_recent' %}">New Releases</a></li>
+                        <li><a href="{% url 'most_popular' %}">Most popular</a></li>
+                        <li class="it-last"><a href="{% url 'top_rated' %}">Top rated Books</a></li>
+					</ul>
+                    {% if user.is_authenticated %}
+                        <span class="welcome">Welcome {{ user.first_name }} {{ user.last_name }}! (<a class="welcome pointer" href="{% url 'logout' %}"><span class="gold">Logout</span></a>)</span>
+                    {% else %}
+                        <a class="welcome pointer" href="{% url 'login' %}"><span class="gold">Login</span>&nbsp;</a>
+                        <a class="welcome pointer" href="{% url 'signup' %}">| <span class="gold">Signup</span></a>
+                    {% endif %}
+				</div>
+
+			<!-- /.navbar-collapse -->
+	    </nav>
+
+	    <!-- top search form -->
+        <form action="{% url 'search_books' %}" method="POST">
+            {% csrf_token %}
+	        <div class="top-search" >
+	    	    <select id="select" name="select">
+				    <option value="book">Book</option>
+                    <option value="isbn13">ISBN13</option>
+                    <option value="isbn">ISBN</option>
+				    <option value="author">Author</option>
+			    </select>
+			    <input type="text" placeholder="Search for a book or author" id="search" name="search">
+	        </div>
+        </form>
+	</div>
+</header>
+<!-- END | Header -->
+{% endblock %}
+
+{% block main %}
+<div class="slider movie-items">
+	<div class="container">
+		<div class="row">
+			<div class="social-link">
+				<p>Follow us: </p>
+				<a href="https://www.facebook.com/universidadedeaveiro/"><i class="ion-social-facebook"></i></a>
+                <a href="https://www.instagram.com/universidadedeaveiro/"><i class="ion-social-instagram"></i></a>
+				<a href="https://twitter.com/univaveiro"><i class="ion-social-twitter"></i></a>
+				<a href="https://www.youtube.com/channel/UCJnxPIxMHdxcYhRIIw_ztEg"><i class="ion-social-youtube"></i></a>
+			</div>
+	    	<div  class="slick-multiItemSlider">
+                {% if top_recent %}
+                    {% for book in top_recent %}
+	    		    <div class="movie-item">
+	    			    <div class="mv-img">
+	    				    <a><img href="{% url 'book_details' book.book_id %}" src="{{ book.image_url }}" alt="" width="285" height="437"></a>
+	    			    </div>
+	    			    <div class="title-in">
+	    				    <h6><a href="{% url 'book_details' book.book_id %}">{{ book.title }}</a></h6>
+	    				    <p><i class="ion-android-star"></i><span>{{ book.average_rating }}</span> /5</p>
+	    			    </div>
+	    		    </div>
+                    {% endfor %}
+                {% endif %}
+	    	</div>
+	    </div>
+	</div>
+</div>
+<div class="movie-items" >
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8">
+				<div class="title-hd">
+					<h2>New Releases</h2>
+					<a href="{% url 'show_books' %}" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
+				</div>
+				<div class="tabs">
+					<ul class="tab-links">
+						<li class="active"><a href="#tab1">#Popular</a></li>
+						<li><a href="#tab2">  #Top rated  </a></li>
+					</ul>
+				    <div class="tab-content">
+				        <div id="tab1" class="tab active">
+				            <div class="row">
+				            	<div class="slick-multiItem">
+				            		{% if popular %}
+                                        {% for book in popular %}
+				            		        <div class="slide-it">
+				            			        <div class="movie-item">
+					            			        <div class="mv-img">
+					            				        <img src="{{ book.image_url }}" alt="" width="185" height="284">
+					            			        </div>
+					            			        <div class="hvr-inner">
+					            				        <a  href="{% url 'book_details' book.book_id %}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            			        </div>
+					            			        <div class="title-in">
+					            				        <h6><a href="{% url 'book_details' book.book_id %}">{{ book.title }}</a></h6>
+					            				        <p><i class="ion-android-star"></i><span>{{ book.average_rating }}</span> /5</p>
+					            			        </div>
+					            		        </div>
+				            		        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+				            </div>
+				        </div>
+				        <div id="tab2" class="tab">
+				        	<div class="row">
+				            	<div class="slick-multiItem">
+                                    {% if top_rated %}
+                                        {% for book in top_rated %}
+				            		        <div class="slide-it">
+				            			        <div class="movie-item">
+					            			        <div class="mv-img">
+					            				        <img src="{{ book.image_url }}" alt="" width="185" height="284">
+					            			        </div>
+					            			        <div class="hvr-inner">
+					            				        <a  href="{% url 'book_details' book.book_id %}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            			        </div>
+					            			        <div class="title-in">
+					            				        <h6><a href="{% url 'book_details' book.book_id %}">{{ book.title }}</a></h6>
+					            				        <p><i class="ion-android-star"></i><span>{{ book.average_rating }}</span> /5</p>
+					            			        </div>
+					            		        </div>
+				            		        </div>
+                                        {% endfor %}
+                                    {% endif %}
+				            	</div>
+				            </div>
+			       	 	</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<!-- footer section-->
+<footer class="ht-footer">
+	<div class="container">
+		<div class="flex-parent-ft">
+			<div class="flex-child-ft item1">
+                <h4>Books Guru</h4>
+{#				 <a href="{% url 'index' %}"><img class="logo" src="{% static 'style/images/book.png' %}" alt="Logo Books Guru"></a>#}
+				 <p>Campus Universitário de Santiago<br>
+				    3810-193 Aveiro<br>
+                     Portugal</p>
+				<p>Contact us: <a href="#">(+351) 234 370 200</a></p>
+			</div>
+			<div class="flex-child-ft item2">
+				<h4>Resources</h4>
+				<ul>
+					<li><a href="{% url 'about' %}">About</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item3">
+				<h4>Legal</h4>
+				<ul>
+					<li><a href="{% url 'terms' %}">Terms of Use</a></li>
+				</ul>
+			</div>
+			<div class="flex-child-ft item4">
+				<h4>News</h4>
+				<a href="https://www.ua.pt/pt/noticias" class="btn">See News<i class="ion-ios-arrow-forward"></i></a>
+			</div>
+		</div>
+	</div>
+	<div class="ft-copyright">
+		<div class="backtotop">
+			<p><a href="#top" id="back-to-top" style="color:white;font-size:20px;">Back to Top  <i class="ion-ios-arrow-thin-up"></i></a></p>
+		</div>
+	</div>
+</footer>
+<!-- end of footer section-->
+{% endblock %}
+
+{% block script %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'style/js/jquery.js' %}"></script>
+    <script src="{% static 'style/js/plugins.js' %}"></script>
+    <script src="{% static 'style/js/plugins2.js' %}"></script>
+    <script src="{% static 'style/js/custom.js' %}"></script>
+{% endblock %}
+</body>
+
+
+</html>

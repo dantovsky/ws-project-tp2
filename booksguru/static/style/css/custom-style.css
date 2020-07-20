@@ -1,0 +1,114 @@
+/* ~ ~ ~ Custom ~ ~ ~ */
+
+.light {
+    color: floralwhite;
+}
+
+.gray {
+    color: gray;
+}
+
+.gold {
+    color: #f5b50a;
+}
+
+.welcome {
+    color: whitesmoke;
+    align-self: center;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+button.btn.btn-primary {
+    margin-top: 15px;
+}
+
+.tabs .mv-img img {
+  width: 162px !important;
+}
+img.small-book {
+  width: 162px;
+}
+.mb-3 {
+  margin-bottom: 15px;
+  color: #f5b50a;
+}
+
+header img.logo {
+  width: 68px !important;
+}
+
+.slider {
+    background: url(../images/uploads/books.jpg) repeat; /*slider-bg*/
+    text-align: center;
+    position: relative;
+    padding-top: 200px;
+    padding-bottom: 50px;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.common-hero {
+  height: 385px;
+  background: url('../images/uploads/books.jpg') no-repeat !important;
+}
+
+.mv-single-hero {
+  background: url('../images/uploads/books.jpg') no-repeat !important;
+}
+
+footer {
+    background: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8) ), url(../images/uploads/ft-bg.jpg) repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Books Details */
+
+.comments h3 {
+    color: #f5b50a;
+    margin-bottom: 25px;
+}
+
+.comments .comment {
+    margin-bottom: 15px;
+    background-color: #f5b50a59;
+    padding: 15px;
+}
+
+.comments .comment h4 {
+    margin-bottom: 5px;
+}
+
+.movie-single .movie-single-ct .movie-rate {
+    margin-bottom: 50px;
+}
+
+/* Footer */
+footer {
+  background: linear-gradient( rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.8) ), url('../images/uploads/books-and-cats.jpg') no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Modal */
+
+.modal {
+    overflow: initial;
+}
+
+.title-hd .form-group label, .title-hd .form-group ul li {
+    color: beige !important;
+}
+
+/* Login page */
+label.control-label {
+    color: white;
+    margin-top: 12px;
+}

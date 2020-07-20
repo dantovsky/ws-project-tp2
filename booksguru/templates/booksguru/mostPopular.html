@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+{% load static %}
+
+<head>
+	<!-- Basic need -->
+	<title>{% block title %}Most Popular{% endblock %}</title>
+
+</head>
+<body>
+{% block main %}
+    <div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>Most Popular</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-single">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="topbar-filter fw">
+					<p>Found <span>{{ size }} books</span> in total</p>
+					<a class="grid"><i class="ion-grid active"></i></a>
+				</div>
+				<div class="flex-wrap-movielist mv-grid-fw" id="table">
+                        {% if results %}
+                            {% for result in results %}
+						        <div class="movie-item-style-2 movie-item-style-1">
+							        <img src="{{ result.image_url }}" alt="Image book" class="small-book">
+							        <div class="hvr-inner">
+	            				        <a  href="{% url 'book_details' result.book_id %}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            			        </div>
+							        <div class="mv-item-infor">
+								        <h6><a href="{% url 'book_details' result.book_id %}">{{ result.title }}</a></h6>
+								        <p class="rate"><i class="ion-android-star"></i><span>{{ result.average_rating }}</span> /5</p>
+							        </div>
+						        </div>
+                            {% endfor %}
+                        {% endif %}
+                </div>
+
+				<div class="topbar-filter" >
+					<label>Books per page: 18</label>
+
+                   {% if results.has_other_pages %}
+                        <div class="pagination2">
+
+                            {% if results.has_previous %}
+                                <a href="?page={{ results.previous_page_number }}">&laquo;</a>
+                            {% else %}
+                                <a class="disabled"><span>&laquo;</span></a>
+                            {% endif %}
+
+                            {% if results.number|add:'-4' > 1 %}
+                                <a href="?page={{ results.number|add:'-5' }}">&hellip;</a></li>
+                            {% endif %}
+
+                            {% for i in results.paginator.page_range %}
+                                {% if results.number == i %}
+                                    <a class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
+                                {% elif i > results.number|add:'-5' and i < results.number|add:'5' %}
+                                    <a href="?page={{ i }}">{{ i }}</a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if results.paginator.numb_pages > results.number|add:'4' %}
+                                <a href="?page={{ results.number|add:'5' }}">&hellip;;</a>
+                            {% endif %}
+
+                            {% if results.has_next %}
+                                <a href="?page={{ results.next_page_number }}">&raquo;</a>
+                            {% else %}
+                                <a class="disabled"><span>&raquo;</span></a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+</body>
+
+</html>

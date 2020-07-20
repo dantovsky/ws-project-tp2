@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+{% load static %}
+
+
+<head>
+	<title>{% block title %}BooksGuru | Signup{% endblock %}</title>
+</head>
+<body>
+
+{% block main %}
+    <div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>Signup</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="movie-items">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-6 col-lg-offset-3">
+                <div style="margin-bottom: 68px;">
+
+                    <form method="post">
+                      {% csrf_token %}
+                      {% for field in form %}
+                        <p>
+                          {{ field.label_tag }}<br>
+                          {{ field }}
+                          {% if field.help_text %}
+                              <small style="color: grey">{{ field.help_text }}</small>
+                          {% endif %}
+                          {% for error in field.errors %}
+                              <p style="color: red">{{ error }}</p>
+                          {% endfor %}
+                        </p>
+                      {% endfor %}
+                      <button type="submit">Sign up</button>
+                    </form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+</body>
+
+
+</html>

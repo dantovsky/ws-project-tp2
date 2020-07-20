@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<html class="ie ie7 no-js" lang="en-US">
+<html class="ie ie8 no-js" lang="en-US">
+<html lang="en" class="no-js">
+{% load static %}
+
+
+<head>
+	<title>{% block title %}BooksGuru | About{% endblock %}</title>
+</head>
+<body>
+
+{% block main %}
+    <div class="hero common-hero">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="hero-ct">
+					<h1>About</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="movie-items">
+	<div class="container">
+		<div class="row ipad-width">
+			<div class="col-md-8">
+				<div class="title-hd">
+					<h2>MEI » Web Semântica » SPARQL e Django</h2>
+{#					<a href="{% url 'index' %}" class="viewall">Home<i class="ion-ios-arrow-right"></i></a>#}
+				</div>
+				<p>
+					Esta aplicação corresponde ao projeto de Web Semântica do Mestrado em Engenharia Informática. O conceito principal deste trabalho é sobre a manipulação e uso do SPARQL e a frameword Django.
+				</p>
+				<p>
+					A fase inicial deu-se pela busca de uma fonte de dados para popular um repositório no GraphDB. O grupo utilizou um conjunto de dados no formato CSV e utilizou a ferramenta Tabular(OntoRefine) presente no GraphDB, destinada à importação de dados a partir de vários tipos de formatos, permitindo assim, a transformação e refinação dos dados antes de popular o repositório do GraphDB.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+</body>
+
+
+</html>

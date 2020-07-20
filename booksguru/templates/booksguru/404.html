@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends "booksguru/index.html" %}
+<!--[if IE 7]>
+<html class="ie ie7 no-js" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html class="ie ie8 no-js" lang="en-US">
+<![endif]-->
+<!--[if !(IE 7) | !(IE 8)  ]><!-->
+<html lang="en" class="no-js">
+{% load static %}
+
+
+<head>
+	<!-- Basic need -->
+	<title>{% block title %}Error 404{% endblock %}</title>
+
+</head>
+<body>
+
+{% block header %}
+{% endblock %}
+
+{% block main %}
+<div class="page-single-2">
+	<div class="container">
+		<div class="row">
+			<div class="middle-content">
+				<a href="{% url 'index' %}"><img class="md-logo" src= "{% static 'style/images/book.png' %}" alt=""></a>
+				<img src="{% static 'style/images/uploads/err-img.png' %}" alt="">
+				<h1>Page not found</h1>
+				<a href="{% url 'index' %}" class="redbtn">go home</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+</body>
+
+<!-- 40414:54-->
+</html>
